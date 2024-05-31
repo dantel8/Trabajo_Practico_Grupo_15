@@ -1,6 +1,5 @@
 package modelo;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +24,12 @@ public class Sucursal {
 			List<Producto> productos) {
 		// SE CALCULAN ESTOS DATOS POR FINES PRACTICOS PARA AGILIZAR LA CARGA DE VENTAS,
 		// NO VIENE AL CASO CON EL TRABAJO
+		
 		// =====================================================================================================================================
 
 		Random rand = new Random();
 
-		int cantidadCarritos = rand.nextInt(10) + 1;//carrito que contienen productos y sus cantidades
+		int cantidadCarritos = rand.nextInt(5) + 1;//carrito que contienen productos y sus cantidades
 		int i = 0;
 		List<Carrito> carr = new ArrayList<Carrito>();
 
@@ -37,7 +37,7 @@ public class Sucursal {
 			// genera la posicion aleatoria del producto entre 0 y 19
 			int productoIndex = rand.nextInt(20);
 			// genera la cantidad aleatoria de productos que van a ir en el
-			int cantidadProductos = rand.nextInt(5) + 1;
+			int cantidadProductos = rand.nextInt(2) + 1;
 			
 			Carrito aux = new Carrito(productos.get(productoIndex), cantidadProductos);
 			// agrego al carrito, el auxiliar que contiene el producto con su cantidad
@@ -50,7 +50,7 @@ public class Sucursal {
 			String ultimo_num_ticket = this.ventas.get(this.ventas.size() - 1).getNum_ticket().split("-")[1];
 			numero_incremental = Integer.parseInt(ultimo_num_ticket) + 1;
 		}
-		// generamos el numero de ticket con el formato 0001-00001234
+		// generamos el numero de ticket con el formato 0001-0000000n
 		String num_ticket = String.format("%04d-%08d", Integer.parseInt(this.nro_sucursal), numero_incremental);
 
 		double total = 0;
@@ -58,16 +58,20 @@ public class Sucursal {
 		for (int j = 0; j < carr.size(); j++) {
 			total = total + carr.get(j).getSubtotal();// se calcula el total, sumando cada sub total de cada carrito con su producto y cantidad
 		}
+		
 		// =====================================================================================================================================
-
-		// se crea la venta con (fecha aletoria, numero de ticket ya calculado
-		// automaticamente y total calculado)
-		int dia = rand.nextInt(30) + 1;
+		
 		int mes = rand.nextInt(12) + 1;
+		int dia;
+		if(mes==2) {
+			dia = rand.nextInt(28) + 1;
+		}else {
+			dia = rand.nextInt(30) + 1;
+		}
 		int anio = 2024;
-
-		Venta venta = new Venta(LocalDate.of(anio, mes, dia), num_ticket, total, metodoPago, emplea_atencion,
-				emplea_cobro);
+		
+		// se crea la venta con (fecha aletoria, numero de ticket ya calculado automaticamente y total calculado)
+		Venta venta = new Venta(LocalDate.of(anio, mes, dia), num_ticket, total, metodoPago, emplea_atencion, emplea_cobro);
 		venta.agregarCarrito(carr);// agregamos el carrito a la venta
 
 		// se agrega a las ventas de la sucursal la venta anterior

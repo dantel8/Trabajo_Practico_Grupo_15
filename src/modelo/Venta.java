@@ -17,7 +17,7 @@ public class Venta {
 			Empleado empleado_cobro) {
 		this.fecha = fecha;
 		this.num_ticket = num_ticket;
-		this.total = 0;
+		this.total = total;
 		this.metodo_pago = metodo_pago;
 		this.carrito = new ArrayList<Carrito>();
 		this.empleado_atencion = empleado_atencion;
