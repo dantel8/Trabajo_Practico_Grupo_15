@@ -43,6 +43,7 @@ ENTREGA 01
 Se requiere la entrega del modelo de entidad/relación (ERD) que surge del análisis del enunciado. En lista:
 1. Análisis del problema
 2. Construcción del ERD
+
 ENTREGA 02
 Se requiere la entrega de las clases POJOs en java, el proyecto de construcción de la estructura de datos utilizando
 estas clases, la instanciación con los datos ejemplo y su posterior serialización en un único documento JSON, esto
@@ -61,6 +62,7 @@ en diferentes listas de diferentes compras, donde los datos del producto podría
 de este tipo de bases de datos y necesitamos visualizar este punto.
 Pista: No queremos tener diferentes listas JSON con las diferentes colecciones de elementos modelados en los
 POCOs, porque seria mantener el esquema normalizado del que estamos “escapando”.
+
 ENTREGA 03
 Para aprobar el trabajo se requiere efectuar la carga de las ventas en la base de datos MongoDB (solo las ventas)
 y sobre ellas efectuar las consultas 1 y 4 de la lista presentada en el enunciado. En caso de realizar el resto de las
