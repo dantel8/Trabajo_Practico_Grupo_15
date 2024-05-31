@@ -24,6 +24,7 @@ De cada sucursal se conoce que empleados pertenecen a la misma, el domicilio (ca
 provincia) y cuál de los empleados es encargado de la misma. El número de ticket se emite con un punto de venta
 distinto para cada sucursal (el punto de venta de identifica con los primeros cuatro números del ticket fiscal, ej:
 0001-00001234 es punto de venta 1)
+
 REPORTES REQUERIDOS
 El cliente desea que el sistema le provea la siguiente información mediante consultas realizadas a la base
 de datos MongoDB:
