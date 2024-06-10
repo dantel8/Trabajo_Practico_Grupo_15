@@ -1,6 +1,7 @@
 package test;
 
 import modelo.Cliente;
+import modelo.Consultas;
 import modelo.Domicilio;
 import modelo.Empleado;
 import modelo.ObraSocial;
@@ -17,6 +18,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -180,7 +182,7 @@ public class testCargaDeDatos {
 		mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd")); //formato de fecha "año-mes-dia"
 
 		try {
-		    // Guarda la lista de ventas en un archivo JSON
+		    //Guarda la lista de ventas en un archivo JSON
 		    mapper.writeValue(new File("ventas_de_sucursales.json"), ventas_sucursales);
 		    System.out.println("JSON generado y guardado en ventas_de_sucursales.json");
 		} catch (IOException e) {
@@ -210,6 +212,11 @@ public class testCargaDeDatos {
         }
 
         System.out.println("JSON insertado con éxito!");
+        
+        Consultas report = new Consultas(collection);
+        
+        report.total_ventas_sucursales_entre_fechas(LocalDate.of(2024, 1, 1), LocalDate.of(2024, 12, 31), collection);
+        report.total_ventas_por_tipo_producto_entre_fechas(LocalDate.of(2024, 1, 1), LocalDate.of(2024, 12, 31), collection);
 
         //cerrando la conexión
         mongoClient.close();
