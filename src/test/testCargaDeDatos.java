@@ -197,22 +197,29 @@ public class testCargaDeDatos {
         //conexión a la base de datos
         MongoDatabase database = mongoClient.getDatabase("grupo_15");
         MongoCollection<Document> collection = database.getCollection("ventas_grupo_15");
-       //se insertamos cada venta en la coleccion
-        for (Venta venta : ventas_sucursales) {
-            try {
-                //convertimos cada objeto venta a un documento de mongo
-                String jsonString = mapper.writeValueAsString(venta);
-                Document document = Document.parse(jsonString);
-
-                //subimos el documento a mongo
-                collection.insertOne(document);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        System.out.println("JSON insertado con éxito!");
         
+        //vamos a verificar que la base de datos este vacia/no exista para poder agregar datos/crearla
+		if (collection.countDocuments() == 0) {
+			// se insertamos cada venta en la coleccion
+			for (Venta venta : ventas_sucursales) {
+				try {
+					// convertimos cada objeto venta a un documento de mongo
+					String jsonString = mapper.writeValueAsString(venta);
+					Document document = Document.parse(jsonString);
+
+					// subimos el documento a mongo
+					collection.insertOne(document);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				System.out.println("JSON insertado con éxito!");
+			}
+		} else {
+			System.out.println("La colección ya contiene datos.");
+		}
+        
+		//=============================================== CONSULTAS 1 Y 4 A LA BASE DE DATOS MONGO BD Y MOSTRADOS POR CONSOLA ==========================================================
+		
         Consultas report = new Consultas(collection);
         
         report.total_ventas_sucursales_entre_fechas(LocalDate.of(2024, 1, 1), LocalDate.of(2024, 12, 31), collection);
